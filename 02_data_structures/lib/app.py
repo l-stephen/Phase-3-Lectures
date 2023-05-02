@@ -26,7 +26,7 @@ pet_names = ['Rose', 'Meow Meow Beans', 'Mr.Legumes', 'Luke', 'Lea', 'Princess G
 # print(pet_names[:3])
 
 
-#5. ✅ Return all pet names beginning from the 3rd index and "up to" (exclusive) the 7th
+#5. ✅ Return all pet names beginning from the 3rd index and "up to" and (exclusive) the 7th
 
 # Inclusive
 # print(pet_names[3:8])

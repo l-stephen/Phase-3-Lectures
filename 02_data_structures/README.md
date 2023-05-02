@@ -10,4 +10,4 @@
 - Sequence functions and methods
 - Stretch Topics: generator expressions
 
-[Lecture Slides](https://docs.google.com/presentation/d/1RKX0m0YpUiMITRIAP6tBqaovoBC0kUrW2RnoVMt_ACk/edit?usp=sharing)
+[Lecture Slides](https://docs.google.com/presentation/d/1RDt_z-fnxl3X0BepEh-h5U9zR241wjf4ln443u3Y47I/edit?usp=sharing)
