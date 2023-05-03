@@ -1,6 +1,6 @@
 # Data Structures
 
-##Lecture Topics
+## Lecture Topics
 - Pytest and the Python Style Guide
 - Sequence Types
 - Mapping Types
