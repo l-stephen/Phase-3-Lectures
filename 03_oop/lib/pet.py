@@ -90,14 +90,10 @@ def new_function2():
     print("This is the second new function")
 
 
-brindle.dog_names = []
-brindle.dog_names.append("Brind")
-Dog.print_all_dogs()
 
 tracker.add_new_species("Labrador")
 print(Dog.species_list)
 print(brindle.species_list)
-
 
 
 
