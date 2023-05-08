@@ -1,0 +1,2 @@
+-- Create some test data
+-- use .read to run this file!
