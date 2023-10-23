@@ -242,13 +242,12 @@ pet_status(pet_name, pet_mood)
 # pet_birthday(10) => "Happy Birthday! Your pet is now 11."
 # pet_birthday("oops") => "Type Error Occurred"
 
-def pet_birthday():
-    pet_age = "10"
+def pet_birthday(age):
     try:
-        print("Happy Birthday! Your pet is now " + str(pet_age + 1))
+        return ("Happy Birthday! Your pet is now " + str(age + 1))
 
     except TypeError:
-        print("Type error occured")
+        return ("Type error")
 
-pet_birthday()
+pet_birthday(10)
 
