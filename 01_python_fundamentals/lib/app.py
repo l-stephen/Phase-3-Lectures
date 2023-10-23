@@ -30,6 +30,25 @@ print(new_array)
 #Todo 4: Create an error in your code and debug the code using the python shell & print statements
 #new 
 ipdb.set_trace()
+#Functions
+def method():
+    print("Inside the method")
+    def nestedMethod():
+        print("In the nested method")
+    nestedMethod()
+print(method())
+
+#multiply method
+def multiply(a, b):
+    return a * b
+print(multiply(10, 20))
+
+#addition method
+
+def addition(a, b):
+    return a + b
+
+print(addition(10, 20))
 
 #Variables
 #Todo 5: Create a variable and assign it to a value
@@ -63,19 +82,38 @@ null = None
 print(null)
 #Tuple - Cannot change once it is assigned
 my_tuple = (1, "tuple", [10, 20, 30, 40])
-print(my_tuple)
+print(my_tuple + (50, 60, 70))
 #Set - Unordered, unchangeable, does not allow duplicates
-fruit_set = {"apple", "banana", "cherry", "apple"}
-print(fruit_set)
+new_set = {"apple", "banana", "cherry", "apple"}
+print(new_set)
+tuple = (1,2,3,4,5,6,7,8,9,10)
+new_set2 = set(tuple)
+print(new_set2)
 #Dictionary
-my_dict = {
+dictionary = {
     "make": "Polestar",
     "model": "S",
-    "Year": 2022,
+    "year": 2022,
     "colors": ["black", "white", "grey"]
 }
-print(my_dict)
-print(my_dict["colors"])
+print(dictionary)
+print(dictionary["colors"])
+print(dictionary.get("year"))
+dictionary["location"] = "Denver"
+print(dictionary)
+
+dictionary2 = dict(school= "Flatiron", location = "Denver", program = "Software Engineering")
+print(dictionary2)
+
+#lists
+new_list = [1,2,3,4,5,6,7,8,9,10]
+new_list.append(11)
+new_list.remove(1)
+new_list.insert(12, 13)
+print(new_list)
+print(new_list[-1])
+print(len(new_list))
+print(len(dictionary))
 
 #Type Conversion
 #Todo 7: Perform type conversion on a data type
@@ -90,9 +128,18 @@ print(type(str_age))
 #if condition:
     #statement if the condition is true
 
+string = "s"
+if type(string) is str:
+    print("It is a string!")
+
 #if/else syntax
 #if condition:
 #else:
+
+if "year" in dictionary:
+    print("In the dictionary!")
+else: 
+    print("Not in the dictionary!")
 
 #if/elif/else syntax
 #if condition:
@@ -100,8 +147,20 @@ print(type(str_age))
 #elif:
 #else:
 
+if 1 in new_list:
+    print("It Exists")
+    #pass
+elif 4 in new_list:
+    print("4 Exists")
+else:
+    print("Does not exists")
+
 #Syntax of a ternary
 #[option1] if [condition] else [option2]
+if "year" in dictionary and "make" in dictionary or "model" in dictionary:
+    print("Exists in the dictionary")
+    pass
+
 
 #Comparison Operators:
 # == : Equal to
@@ -123,42 +182,12 @@ if age > 0:
 string = ""
 if not string:
     print("Empty")
-#Test if a number is positive or negative using an else
-if age > 0: 
-    print("Positive")
-else:
-    print("Negative")
-#Test if a number is positve, negative, or zero, using if, elif, and else
-if age > 0: 
-    print("Positive")
-elif age < 0:
-    print("Negative")
-else:
-    print("Zero")
-#Test if a number is in between two numbers using the and operator
-num4 = 10
-if num4 > 0 and num4 < 20:
-    print("The number is between 10 and 20")
-#Test if a number is positive, even, or both
-num5 = 10
 
-if num5 > 0 and num5 % 2 == 0:
-    print("The number is positive and even")
-elif num5 > 0:
-    print("The number is positive")
-elif num5 % 2 == 0:
-    print("The number is even")
-else:
-    print("The number is negative and odd")
+arr = []
+if arr is []:
+    print("empty array")
 
-#Test if a string is empty or not
-string2 = "hello"
-
-if string2 == "":
-    print("The string is empty")
-else:
-    print("The string is not empty")
-#Todo 8: Create a condition to check a pet's mood using an if/elif/else and a ternary
+#Create a condition to check a pet's mood using an if/elif/else and a ternary
 pet_name = "tracker"
 pet_mood = "Hungry"
 #If "pet_mood" is "Hungry!", "Tracker needs to be fed."
@@ -166,30 +195,31 @@ pet_mood = "Hungry"
 #In all other cases, "Tracker is all good"
 
 if pet_mood == "Hungry":
-    print('Tracker needs to be fed')
-elif pet_mood == "Whinny":
-    print("Tracker needs a walk")
+    print('Feed')
+elif pet_mood == "Sad":
+    print("Pet")
 else:
-    print("Tracker is all good")
+    print("All good")
 
 print("Trackers need to be fed") if pet_mood == "Hungry" else print("Tracker needs a walk") if pet_mood == "Whinny" else print("Tracker is all good")
 
 
 #While Loop
-i = 1
-while i <= 100:
-    print(i)
-    i += 1
+count = 0
+while count <= 100:
+    print(count)
+    count += 1
 
 #For Loop and Range
 fruits = ['Apple', "Orange", "Mango"]
 for fruit in fruits:
     print(fruit)
 
-for num in range(10):
-    print("Printing: ", num)
+for num in range(len(new_list)):
+    print(num)
+
 #List Comprehension
-newlist = [x for x in range(10) if x < 5]
+newlist = [num for num in range(10) if num < 5]
 print(newlist)
 #String Interpolation example
 name = "programmers"
@@ -198,17 +228,15 @@ print(f"Hello {name} this is {program} %s")
 #Todo 9: Move conditional logic from Deliverable 1 into a function (pet_status) so that we may 
 # use it with different pets / moods
 # Test invocation of "pet_status" in ipdb using "pet_status(pet_name, pet_mood)"
-def pet_status(pet_moods):
-    if pet_moods == "Hungry":
-        print('Tracker needs to be fed')
-    elif pet_moods == "Whinny":
-        print("Tracker needs a walk")
-    else:
-        print("Tracker is all good")
+def pet_status(name, mood):
+    ipdb.set_trace()
+    print(f"{name} is {mood}")
+    mood = "Tired"
+    ipdb.set_trace()
+    print(f"{name} is now {mood}")
 
-pet = "Hungry"
-ipdb.set_trace()
-pet_status("Hungry")
+pet_status(pet_name, pet_mood)
+    
 #Todo 10: Create a function (pet_birthday) that will increment a pet's age up by 1. Use try / except to handle errors. 
 # If our function is given an incorrect datatype, it should handle the TypeError exception and alert the user
 # pet_birthday(10) => "Happy Birthday! Your pet is now 11."
@@ -222,5 +250,5 @@ def pet_birthday():
     except TypeError:
         print("Type error occured")
 
-pet_birthday("wrong")
+pet_birthday()
 
