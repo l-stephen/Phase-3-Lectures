@@ -1,13 +1,17 @@
-# Data Structures
+# Python Data Structures
 
-## Lecture Topics
-- Pytest and the Python Style Guide
-- Sequence Types
-- Mapping Types
-- Set Types
-- Loops
-- Sequence Operators
-- Sequence functions and methods
-- Stretch Topics: generator expressions
+## Learning Goals
 
-[Lecture Slides](https://docs.google.com/presentation/d/1RDt_z-fnxl3X0BepEh-h5U9zR241wjf4ln443u3Y47I/edit?usp=sharing)
+- Demonstrate Sequence types (`list`, `tuple`, `range`)
+- Review the different uses for each Sequence type
+- Demonstrate standard methods for accessing, updating and deleting values in Lists
+- Review Tuples
+- Review Ranges 
+- Demonstrate Mapping types with Dictionaries
+- Demonstrate standard methods for accessing, updating and deleting values in Dictionaries
+- Demonstrate Set types with set and frozen set
+- Demonstrate `for` and `while` loops
+- Demonstrate list compressions 
+- Stretch Goals
+    - Demonstrate Generator expressions 
+    - Demonstrate how to create a `switch` using a Dictionary
