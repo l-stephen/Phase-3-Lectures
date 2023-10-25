@@ -56,6 +56,7 @@ pet_name = "Tracker"
 #Global Variables
 pet_name2 = "Boba"
 
+
 #Python Data Types
 #Todo 6: Create a data type variable
 
@@ -114,6 +115,9 @@ print(new_list)
 print(new_list[-1])
 print(len(new_list))
 print(len(dictionary))
+
+#lists
+
 
 #Type Conversion
 #Todo 7: Perform type conversion on a data type
@@ -209,6 +213,7 @@ count = 0
 while count <= 100:
     print(count)
     count += 1
+
 
 #For Loop and Range
 fruits = ['Apple', "Orange", "Mango"]
