@@ -1,17 +1,9 @@
-#SQL Alchemy is a powerful python library that provides a ORM
-#Allows developers to interact with database using Python objects, instead of writing sql queries
-#Today we will cover full CRUD operations (Create, Read, Update, Delete) using SQLAlchemy
+#Start with imports
 
-#First you will need to install SQLAlchemy, pipenv install sqlalchemy, then pipenv shell
+#Define declarative_base()
 
-#import create engine, which allows you to make a connection to your database and exceute sql commands
-#Then define a model, import delcarative base, session, and create a model by importing Columm, Integer, String, func()
-#allows us to define classes mapped to a relational database
-#the session uses sessionmaker which ensures there is a consistent identity map during your session
 
-#start by setting up declarative_base()
-
-#create a class that is a child of BASE
+#create a class that is a child of Base
 
     #create a table name
 
@@ -23,19 +15,53 @@
 
     #create models
 
-    #create a __repr__ to make it easy to see results
+if __name__ == "__main__":
 
-#if main create the database engine 
+    #create the database engine with create_engine()
 
+    #delete tables using .drop(engine)
 
-    #create the database schema using create_all
+    #Create the table with create_all()
 
-    #create a session
+    #with Session object create a session
+        ''' 
+        The session object will allow use to perform CRUD on our models
+        Session.add()
+        Session.add_all([])
+        Session.query()
+            .all()
+            .orderby() ex: Table.name.desc()
+            .limit()  ex: limit(2)
+            .filter() ex Table.name = "name"
+            .update() ex {Table.name: newname}
+        Session.delete()
+        Session.commit()
+        '''
+        #query all students from the database, use order_by() and sort in asc order, use limit() and all()
 
-    #add to the database and commit
+        #take user input for a name
 
+        #query from the student database using user input, use filter() and first()
 
-    #query from the session, delete from the session and commit
+        #if the student exists, delete them from the session
+
+        #commit the change!
+
+        #else print not a student
+
+        #take in user input to create a new student
+
+        #add the new student to the session
+
+        #take in user input to create a new teacher
+
+        #add the new student to the session
+
+        #query from database using user input
+
+        #demonstrate add() and add_all()
+
+        #commit the change!
 
 
 
