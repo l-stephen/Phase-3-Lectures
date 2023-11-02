@@ -30,6 +30,11 @@ tanner = Tenent("Tanner",25)
 sunnyside.tenent = david
 sunnyside.tenent = tanner
 
+class Apartment:
+    def __init__(self, name, location):
+        self.name = name
+        self.location = location
+        self.tenant = None
 
 # One to Many
 class Team:

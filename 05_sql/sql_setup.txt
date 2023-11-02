@@ -1,4 +1,4 @@
-https://github.com/learn-co-students/SENG-LIVE-010923-Phase-3/tree/main/05_SQL/dog_walker
+#References: https://www.w3schools.com/sql/default.asp 
 
 Create a new database using the following
 
