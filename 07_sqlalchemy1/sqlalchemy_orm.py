@@ -9,11 +9,19 @@
 
     #create models
 
+    #create a validation
+
+    #create a repr
+
 #create a class that is a child of BASE
 
     #create a table name
 
     #create models
+
+    #create a validation
+
+    #create a repr
 
 if __name__ == "__main__":
 
