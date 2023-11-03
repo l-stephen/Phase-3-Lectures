@@ -43,7 +43,7 @@ class Zoo(Base):
     name = Column(String)
     location = Column(String)
     animals = relationship("Animal", back_populates="zoo")
-    zookeepers = relationship("Zookeeper", secondary="animals", back_populates="zoos")
+    zookeepers = relationship("Zookeeper", secondary="animals", back_populates="zoos", viewonly=True)
 
 
 class Zookeeper(Base):
@@ -52,7 +52,7 @@ class Zookeeper(Base):
     name = Column(String)
     email = Column(String)
     animals = relationship("Animal", back_populates="zookeeper")
-    zoos = relationship("Zoo", secondary="animals", back_populates="zookeepers")
+    zoos = relationship("Zoo", secondary="animals", back_populates="zookeepers", viewonly=True)
 
 
 class Animal(Base):
@@ -67,18 +67,17 @@ class Animal(Base):
 engine = create_engine('sqlite:///many_to_many.db')
 Base.metadata.create_all(engine)
 with Session(engine) as session:
-    # zoo_nyc = Zoo(name = "Central Park Zoo", location ="Ny")
-    # kam = session.query(Zookeeper).first()
-    # zookeeper_kam = Zookeeper(name="Kam",email = "Kam@gmail.com",emergency_email = "Kam2@gmail.com")
-    # animal1 = Animal(species = "Lion",zoo = zoo_nyc, zookeeper =kam)
-    # animal2 = Animal(species = "Giraffe",zoo = zoo_den, zookeeper =zookeeper_kam)
-    # session.add_all([zoo_nyc,animal1])
-    # session.commit()
-    # kam = session.query(Zookeeper).first()
-
-    # nyc= session.query(Zoo).filter(Zoo.id == 1).first()
-    # print(nyc.zookeepers)
-    # print(nyc.animals)
-    # z3 = session.query(Zoo).filter(Zoo.id == 3).first()
-    # print(z3.zookeepers)
-    # print(z3.animals)
+    zoo_nyc = Zoo(name = "Central Park Zoo", location ="Ny")
+    zoo_den = Zoo(name = "Denver Zoo", location ="Den")
+    zookeeper_dylan = Zookeeper(name="Dylan",email = "dylan@gmail.com")
+    animal1 = Animal(species = "Lion",zoo = zoo_nyc, zookeeper =zookeeper_dylan)
+    animal2 = Animal(species = "Giraffe",zoo = zoo_den, zookeeper =zookeeper_dylan)
+    session.add_all([zoo_nyc,zoo_den])
+    session.commit()
+    dylan = session.query(Zookeeper).first()
+    nyc= session.query(Zoo).filter(Zoo.id == 1).first()
+    print(nyc.zookeepers)
+    print(nyc.animals)
+    z3 = session.query(Zoo).filter(Zoo.id == 3).first()
+    print(z3.zookeepers)
+    print(z3.animals)
