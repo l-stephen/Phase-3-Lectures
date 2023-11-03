@@ -82,5 +82,3 @@ with Session(engine) as session:
     # z3 = session.query(Zoo).filter(Zoo.id == 3).first()
     # print(z3.zookeepers)
     # print(z3.animals)
-
-
