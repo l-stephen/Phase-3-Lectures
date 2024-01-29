@@ -32,9 +32,9 @@ def buggy_function(x,y):
     result = x/y
     return result
 
-ipdb.set_trace()
-result = buggy_function(10,0)
-print("Result: ", result)
+# ipdb.set_trace()
+# result = buggy_function(10,0)
+# print("Result: ", result)
 
 #Functions
 def method():
@@ -258,10 +258,10 @@ print(f"Hello {name} this is {program} %s")
 # use it with different pets / moods
 # Test invocation of "pet_status" in ipdb using "pet_status(pet_name, pet_mood)"
 def pet_status(name, mood):
-    ipdb.set_trace()
+    # ipdb.set_trace()
     print(f"{name} is {mood}")
     mood = "Tired"
-    ipdb.set_trace()
+    # ipdb.set_trace()
     print(f"{name} is now {mood}")
 
 pet_status(pet_name, pet_mood)
