@@ -10,6 +10,8 @@ class Meal(Base):
     name = Column(String(), nullable=False)
     temp = Column(Integer(), nullable=False)
     calories = Column(Integer(), nullable=False)
+    #using backref
+    #ingredients = relationship('Ingredient', secondary='recipes', backref='meals')  
     ingredients = relationship('Ingredient', secondary='recipes', back_populates='meals')
 
     @validates('name')
@@ -34,6 +36,8 @@ class Ingredient(Base):
     __tablename__ = "ingredients"
     id = Column(Integer(), primary_key=True)
     name = Column(String(), nullable=False)
+    #using backref
+    #meals = relationship('Meal', secondary='recipes', backref='ingredients') 
     meals = relationship('Meal', secondary='recipes', back_populates='ingredients')
 
     @validates('name')
