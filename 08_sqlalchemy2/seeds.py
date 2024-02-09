@@ -1,23 +1,32 @@
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from faker import Faker
-from random import randint
-from many_to_many import Meal
-from sqlalchemy import Column, Integer, String, create_engine, func
-from sqlalchemy.orm import Session, declarative_base
-# How do we delete all? Check out delete and remove any filter
-# Check out https://faker.readthedocs.io/en/master/index.html
-# We can use Faker to generate random words
-fake = Faker()
-print(fake.word())
-engine = create_engine('sqlite:///food.db')
-with Session(engine) as session:
-    session.query(Meal).delete()
-    nlist = []
-    for i in range(50):
-        newMeal = Meal(
-            name = fake.word(),
-            temp = randint(0,1000),
-            calories = randint(0,10000)
-        )
-        nlist.append(newMeal)
-    session.add_all(nlist)
+from review import Teacher, Student, Base
+
+if __name__ == "__main__":
+    # Ensure the database engine is created
+    engine = create_engine('sqlite:///school.db')
+    Base.metadata.create_all(engine)
+
+    # Create a session
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    fake = Faker()
+
+    # Generate fake data for teachers using Faker and range
+    for _ in range(5):
+        teacher = Teacher(name=fake.name(), subject=fake.word())
+        session.add(teacher)
+
+    # Generate fake data for students using Faker and range
+    for _ in range(20):
+        student = Student(name=fake.name(), email=fake.email(), emergency_email=fake.email(), teacher_id=fake.random_int(min=1, max=5))
+        session.add(student)
+
     session.commit()
+    print("Teachers and students added successfully.")
+
+    # Close the session
+    session.close()
+
