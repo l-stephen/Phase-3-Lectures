@@ -1,110 +1,85 @@
-from sqlalchemy import ForeignKey, Column, Integer, String, create_engine, func
-from sqlalchemy.orm import Session, declarative_base,relationship
+from sqlalchemy import create_engine, ForeignKey, Column, Integer, String
+from sqlalchemy.orm import Session, sessionmaker, relationship, validates
+from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-#Creating a class that works with a table (child component of the base)
 class Meal(Base):
     __tablename__ = "meals"
-    #Properties
     id = Column(Integer(), primary_key=True)
-    name = Column(String())
-    temp = Column(Integer())
-    calories = Column(Integer())
-    ingredients = relationship('Ingredient', backref = 'meals')
+    name = Column(String(), nullable=False)
+    temp = Column(Integer(), nullable=False)
+    calories = Column(Integer(), nullable=False)
+    ingredients = relationship('Ingredient', secondary='recipes', back_populates='meals')
+
+    @validates('name')
+    def validate_name(self, key, name):
+        if not name:
+            raise ValueError("Meal name cannot be empty.")
+        return name
+
+    @validates('temp')
+    def validate_temp(self, key, temp):
+        if temp < 0:
+            raise ValueError("Temperature must be a positive integer.")
+        return temp
+
+    @validates('calories')
+    def validate_calories(self, key, calories):
+        if calories < 0:
+            raise ValueError("Calories must be a positive integer.")
+        return calories
 
 class Ingredient(Base):
     __tablename__ = "ingredients"
     id = Column(Integer(), primary_key=True)
-    name = Column(String())
-    table_id = Column(Integer(), ForeignKey('meals.id'))
+    name = Column(String(), nullable=False)
+    meals = relationship('Meal', secondary='recipes', back_populates='ingredients')
 
-engine = create_engine('sqlite:///one_to_many.db')
-Base.metadata.create_all(engine)
-hotpocket = Meal(
-    name = "Hot Pocket",
-    temp = 1000,
-    calories = 500
-)
-bread = Ingredient(
-    name = "'Bread'",
-    table_id = 1
-)
-innards = Ingredient(
-    name = "pizza?",
-    table_id = 2
-)
-
-# with Session(engine) as session:
-#     # session.add(hotpocket)
-#     # session.add(bread)
-#     # session.add(innards)
-#     # session.commit()
-#     meal_list = session.query(Meal).all()
-#     for meal in meal_list:
-#         print(f'{meal.name}: Ingredient List')
-#         for ing in meal.ingredients:
-#             print(ing.name)
-
-# Many to many (Join) (relating table object in quotes)
-# MANY
-class Meal(Base):
-    __tablename__ = "meals"
-    #Properties
-    id = Column(Integer(), primary_key=True)
-    name = Column(String())
-    temp = Column(Integer())
-    calories = Column(Integer())
-    ingredients = relationship('Ingredient', secondary = 'recipes',back_populates='meals')
-
-class Ingredient(Base):
-    __tablename__ = "ingredients"
-    id = Column(Integer(), primary_key=True)
-    name = Column(String())
-    meals= relationship('Meal', secondary = 'recipes',back_populates='ingredients')
+    @validates('name')
+    def validate_name(self, key, name):
+        if not name:
+            raise ValueError("Ingredient name cannot be empty.")
+        return name
 
 class Recipe(Base):
     __tablename__ = "recipes"
     id = Column(Integer(), primary_key=True)
     meal_id = Column(Integer(), ForeignKey('meals.id'))
     ingredient_id = Column(Integer(), ForeignKey('ingredients.id'))
+
 engine = create_engine('sqlite:///many_to_many.db')
 Base.metadata.create_all(engine)
 
-hotpocket = Meal(
-    name = "Hot Pocket",
-    temp = 1000,
-    calories = 500
-)
-bagelbites = Meal(
-    name = "Bagel Bites",
-    temp = 50,
-    calories = 300
-)
-bread = Ingredient(
-    name = "'Bread'"
-)
-innards = Ingredient(
-    name = "pizza?"
-)
-hp1 = Recipe(
-    meal_id = 1,
-    ingredient_id = 1
-)
-hp2 = Recipe(
-    meal_id = 1,
-    ingredient_id = 2
-)
-bb1 = Recipe(
-    meal_id = 2,
-    ingredient_id = 1
-)
-with Session(engine) as session:
-    session.add(hotpocket)
-    session.add(bagelbites)
-    session.add(bread)
-    session.add(innards)
-    session.add(hp1)
-    session.add(hp2)
-    session.add(bb1)
+Session = sessionmaker(bind=engine)
+
+with Session() as session:
+    # Create a new meal
+    new_meal = Meal(name="Spaghetti", temp=90, calories=350)
+    session.add(new_meal)
     session.commit()
+
+    # Create a new ingredient
+    new_ingredient = Ingredient(name="Tomato Sauce")
+    session.add(new_ingredient)
+    session.commit()
+
+    # Add the new ingredient to the meal
+    new_recipe = Recipe(meal_id=new_meal.id, ingredient_id=new_ingredient.id)
+    session.add(new_recipe)
+    session.commit()
+
+    # Remove the ingredient from the meal
+    recipe_to_delete = session.query(Recipe).filter_by(meal_id=new_meal.id, ingredient_id=new_ingredient.id).first()
+    session.delete(recipe_to_delete)
+    session.commit()
+
+    # Delete the meal
+    meal_to_delete = session.query(Meal).filter_by(id=new_meal.id).first()
+    session.delete(meal_to_delete)
+    session.commit()
+
+    # Get all meals
+    all_meals = session.query(Meal).all()
+    for meal in all_meals:
+        print(f"Meal ID: {meal.id}, Name: {meal.name}, Temperature: {meal.temp}, Calories: {meal.calories}")
